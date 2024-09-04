@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-export default ({ addComment }) => {
+export default ({ createComment }) => {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    addComment({ email, comment });
+    createComment({ email, commentDescription: comment });
     setEmail("");
     setComment("");
   };
 
   return (
-    <form className="pl-20 flex flex-col gap-4 " onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-4 w-full " onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2">
         <label htmlFor="email">E-mail</label>
         <input
@@ -20,7 +20,10 @@ export default ({ addComment }) => {
           id="email"
           name="email"
           value={email}
-          className="w-96 h-8 border border-black"
+          onChange={(e) => {
+            return setEmail(e.target.value);
+          }}
+          className="w-full h-8 border border-black"
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -28,12 +31,16 @@ export default ({ addComment }) => {
         <textarea
           name="comment"
           id="comment"
-          className="w-96 border h-32 border-black"
+          value={comment}
+          onChange={(e) => {
+            return setComment(e.target.value);
+          }}
+          className="w-full border h-32 border-black"
         ></textarea>
       </div>
       <button
         type="submit"
-        className="w-96 border h-8 border-black  hover:bg-gray-400"
+        className="w-full border h-8 border-black  hover:bg-gray-400"
       >
         Enviar Comentário
       </button>
